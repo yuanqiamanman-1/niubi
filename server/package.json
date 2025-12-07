@@ -6,8 +6,8 @@
   "type": "module",
   "scripts": {
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
-    "start": "node dist/index.js"
+    "build": "tsc && prisma generate",
+    "start": "prisma db push && node dist/seed.js && node dist/index.js"
   },
   "dependencies": {
     "@prisma/client": "^5.7.0",
