@@ -39,9 +39,9 @@ router.get('/stats/today', async (req, res) => {
     });
     
     res.json({ count });
-  } catch (error) {
+  } catch (error: any) {
     console.error('Get today stats error:', error);
-    res.status(500).json({ message: '获取今日统计失败' });
+    res.status(500).json({ message: '获取今日统计失败', error: error.message, stack: error.stack });
   }
 });
 
@@ -52,9 +52,9 @@ router.get('/', authenticateToken, async (req, res) => {
       orderBy: { createdAt: 'desc' }
     });
     res.json(orders);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Get orders error:', error);
-    res.status(500).json({ message: '获取订单失败' });
+    res.status(500).json({ message: '获取订单失败', error: error.message });
   }
 });
 
@@ -81,9 +81,9 @@ router.post('/', async (req, res) => {
     });
 
     res.status(201).json(order);
-  } catch (error) {
+  } catch (error: any) {
     console.error('Create order error:', error);
-    res.status(500).json({ message: '创建订单失败' });
+    res.status(500).json({ message: '创建订单失败', error: error.message, stack: error.stack });
   }
 });
 
