@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model Order {
+  id            Int      @id @default(autoincrement())
+  brand         String
+  model         String
+  tension       String
+  stringType    String   @map("string_type")
+  contactName   String   @map("contact_name")
+  contactPhone  String   @map("contact_phone")
+  amount        Decimal  @default(0)
+  status        String   @default("pending")
+  completedAt   DateTime? @map("completed_at")
+  estimatedCompletionTime DateTime? @map("estimated_completion_time")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt @map("updated_at")
+
+  @@map("orders")
+}
+
+model Merchant {
+  id        Int      @id @default(autoincrement())
+  username  String   @unique
+  password  String
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("merchants")
+}
